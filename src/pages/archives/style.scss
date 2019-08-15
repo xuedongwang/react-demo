@@ -1,0 +1,45 @@
+.pageView {
+  color: #313131;
+}
+.content {
+  max-width: 1040px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px 0 30px 20px;
+  box-sizing: border-box;
+}
+.archive {
+  overflow: hidden;
+  & + & {
+    margin-top: 20px;
+  }
+}
+.archiveTitle {
+  margin: 18px 0;
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 34px;
+}
+.archiveItem {
+  display: flex;
+  margin: 15px 0;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.archiveItemCreateDate {
+  margin-right: 40px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.archiveItemTitle {
+  &:hover {
+    margin-left: 5px;
+    color: #4D89FB;
+    transition: all .17s;
+    .archiveItemCreateDate {
+      color: #4D89FB;
+    }
+  }
+}

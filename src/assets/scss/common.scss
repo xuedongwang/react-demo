@@ -1,0 +1,18 @@
+:global {
+  .fl {
+    float: left;
+  }
+  .fr {
+    float: right;
+  }
+  .clearfix {
+    &:after,
+    &:before {
+      content: '';
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+  }
+}
