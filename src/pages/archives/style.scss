@@ -28,16 +28,18 @@
 }
 
 .archiveItemCreateDate {
-  margin-right: 40px;
+  display: block;
+  width: 80px;
   font-size: 14px;
   color: #aaa;
 }
 
 .archiveItemTitle {
+  display: flex;
+  transition: all .17s;
   &:hover {
-    margin-left: 5px;
+    margin-left: 8px;
     color: #4D89FB;
-    transition: all .17s;
     .archiveItemCreateDate {
       color: #4D89FB;
     }

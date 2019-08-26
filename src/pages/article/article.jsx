@@ -43,7 +43,7 @@ class Article extends Component {
             <div className={ style.articleCopyright }>
               <p className={ style.copyrightDesc }>原文链接：https://www.baidu.com/</p>
               <div className={ style.historyVersion }>
-                <div onClick={ this.handleToggleShowHistoryVertions }>历史版本<i className={`icon-sanjiao iconfont ${style.moreIcon}`}></i></div>
+                <div onClick={ this.handleToggleShowHistoryVertions }>修改版本<i className={`icon-sanjiao iconfont ${style.moreIcon}`}></i></div>
                 {
                   showHistoryVersions && <div className={ style.historyVersionDisplay }>
                     <div className={ style.versionItem }>2019-08-12 14:10:29 xxx </div>
@@ -88,7 +88,7 @@ class Article extends Component {
               <li className={ style.commentItem }>
                 <div className={ style.initComment }>
                   <div className={ `clearfix ${style.commentUserInfo}` }>
-                    <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                    <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                     <div className={ `fl ${style.infoBlock}` }>
                       <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                       <div className={ style.commentDate }>12天前</div>
@@ -100,7 +100,7 @@ class Article extends Component {
                 <div className={ style.childtenCommentWrapper }>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -111,7 +111,7 @@ class Article extends Component {
                   </div>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -122,7 +122,7 @@ class Article extends Component {
                   </div>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -136,7 +136,7 @@ class Article extends Component {
               <li className={ style.commentItem }>
                 <div className={ style.initComment }>
                   <div className={ `clearfix ${style.commentUserInfo}` }>
-                    <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                    <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                     <div className={ `fl ${style.infoBlock}` }>
                       <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                       <div className={ style.commentDate }>12天前</div>
@@ -148,7 +148,7 @@ class Article extends Component {
                 <div className={ style.childtenCommentWrapper }>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -159,7 +159,7 @@ class Article extends Component {
                   </div>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -170,7 +170,7 @@ class Article extends Component {
                   </div>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -184,7 +184,7 @@ class Article extends Component {
               <li className={ style.commentItem }>
                 <div className={ style.initComment }>
                   <div className={ `clearfix ${style.commentUserInfo}` }>
-                    <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                    <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                     <div className={ `fl ${style.infoBlock}` }>
                       <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                       <div className={ style.commentDate }>12天前</div>
@@ -196,7 +196,7 @@ class Article extends Component {
                 <div className={ style.childtenCommentWrapper }>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -207,7 +207,7 @@ class Article extends Component {
                   </div>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
@@ -218,7 +218,7 @@ class Article extends Component {
                   </div>
                   <div className={ style.childrenComments }>
                     <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="https://image.biji.io/wp-content/uploads/gravatar/9fde6012eaf81b21a40d22f970743fce-s120.jpg?imageView2/0/format/webp" className={ `fl ${style.avatar}` }></img>
+                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
                       <div className={ `fl ${style.infoBlock}` }>
                         <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
                         <div className={ style.commentDate }>12天前</div>
