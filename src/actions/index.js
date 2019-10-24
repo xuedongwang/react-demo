@@ -10,7 +10,9 @@ import {
   FETCH_ARCHIVES_ASYN,
   SET_ARCHIVES,
   FETCH_ARTICLE_ASYN,
-  SET_ARTICLE
+  SET_ARTICLE,
+  FETCH_ARTICLE_COMMENTS_ASYN,
+  SET_COMMENTS
 } from '@/actions/actionTypes';
 
 export const fetchArticlesAsync = () => {
@@ -81,6 +83,18 @@ export const fetchArticleContentAsync = () => {
 export const setArticle = (payload) => {
   return {
     type: SET_ARTICLE,
+    payload
+  };
+};
+
+export const fetchArticleCommentsAsync = () => {
+  return {
+    type: FETCH_ARTICLE_COMMENTS_ASYN
+  };
+};
+export const setComments = (payload) => {
+  return {
+    type: SET_COMMENTS,
     payload
   };
 };

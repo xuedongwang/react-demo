@@ -11,52 +11,7 @@ class Home extends Component {
     this.state = {
       total: 4,
       currentPage: 1,
-      hotTags: [
-        {
-          id: 'qwe',
-          name: '标签'
-        },
-        {
-          id: 'qweqwe',
-          name: '标签标签'
-        },
-        {
-          id: 'qweqweqwe',
-          name: '标签'
-        },
-        {
-          id: 'q2we',
-          name: '标签'
-        },
-        {
-          id: 'qw1e',
-          name: '标签签'
-        },
-        {
-          id: 'qweqweqweqwe',
-          name: '签'
-        },
-        {
-          id: 'q34we',
-          name: '标签'
-        },
-        {
-          id: 'qw54e',
-          name: '标签'
-        },
-        {
-          id: 'qw75e',
-          name: '标签'
-        },
-        {
-          id: 'qw321e',
-          name: '标签'
-        },
-        {
-          id: 'qw567e',
-          name: '标签标签标签标签标签标签标签标签标签标签标签标签'
-        }
-      ]
+      hotTags: {}
     };
     this.handleNextPage = this.handleNextPage.bind(this);
     this.handlePrevPage = this.handlePrevPage.bind(this);
@@ -84,6 +39,7 @@ class Home extends Component {
   render () {
     const { total, currentPage } = this.state;
     const { articles, hotTags } = this.props;
+    console.log('hotTags', hotTags);
     return (
       <div className={ style.pageView }>
         <main className={ style.content }>
@@ -117,7 +73,7 @@ class Home extends Component {
               <h4 className={ style.asideItemTitle }>热门标签</h4>
               <div className={ style.asideItemContent }>
                 {
-                  hotTags.map(item => (
+                  hotTags.list.map(item => (
                     <Link className={ style.asideTagBtn } title={ item.name } key={ item.id } to={ `/tag/${item.id}` }>{ item.name }</Link>
                   ))
                 }
@@ -136,7 +92,7 @@ Home.propTypes = {
   articles: PropTypes.object,
   total: PropTypes.number,
   currentPage: PropTypes.number,
-  hotTags: PropTypes.array
+  hotTags: PropTypes.object
 };
 
 export default Home;

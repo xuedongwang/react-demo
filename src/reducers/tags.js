@@ -1,7 +1,9 @@
 import {
   SET_TAGS
 } from '@/actions/actionTypes';
-const initState = [];
+const initState = {
+  list: []
+};
 function tags (state = initState, action) {
   switch (action.type) {
     case SET_TAGS:

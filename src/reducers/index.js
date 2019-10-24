@@ -6,6 +6,7 @@ import hotTags from './hotTags';
 import category from './category';
 import tags from './tags';
 import archives from './archives';
+import comments from './comments';
 
 const rootReducer = combineReducers({
   global,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   hotTags,
   category,
   tags,
-  archives
+  archives,
+  comments
 });
 
 export default rootReducer;

@@ -1,7 +1,9 @@
 import {
   SET_HOT_TAGS
 } from '@/actions/actionTypes';
-const initState = [];
+const initState = {
+  list: []
+};
 function articles (state = initState, action) {
   switch (action.type) {
     case SET_HOT_TAGS:

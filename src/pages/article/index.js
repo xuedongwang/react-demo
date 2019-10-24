@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
-import { fetchArticleContentAsync } from '@/actions';
+import { fetchArticleContentAsync, fetchArticleCommentsAsync } from '@/actions';
 import Article from './article';
 
 const mapStateToProps = state => {
   return {
-    article: state.article
+    article: state.article,
+    comments: state.comments
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchArticleContent: () => dispatch(fetchArticleContentAsync())
+    fetchArticleContent: () => dispatch(fetchArticleContentAsync()),
+    fetchArticleComments: () => dispatch(fetchArticleCommentsAsync())
   };
 };
 

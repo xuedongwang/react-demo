@@ -17,7 +17,7 @@ class Home extends Component {
       <div className={ style.pageView }>
         <main className={ style.content }>
           {
-            archives.map(archive => (
+            archives.list.map(archive => (
               <dl key={ archive.year } className={ style.archive }>
                 <dt className={ style.archiveTitle }>{ this.formatYear(archive.year) }</dt>
                 {
@@ -40,7 +40,7 @@ class Home extends Component {
 
 Home.propTypes = {
   fetchArchives: PropTypes.func,
-  archives: PropTypes.array
+  archives: PropTypes.object
 };
 
 export default Home;

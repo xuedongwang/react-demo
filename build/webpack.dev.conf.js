@@ -157,16 +157,7 @@ const devWebpackConfig = {
     overlay: {
       errors: true
     },
-    proxy: {
-      '/api': {
-        target: 'http://localhost:9999',
-        pathRewrite: {
-          '^/api' : ''
-        },
-        changeOrigin: true,     // target是域名的话，需要这个参数，
-        secure: true,          // 设置支持https协议的代理
-      }
-    }
+    proxy: {}
   },
   plugins: [
     new HTMLPlugin({

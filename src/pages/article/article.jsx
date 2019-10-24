@@ -2,19 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import style from './style';
-import 'github-markdown-css';
-import 'prismjs/themes/prism-okaidia.css';
+import { format } from 'timeago.js';
+import Markdown from '@/components/Markdown';
 
 class Article extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      showHistoryVersions: false
+      showHistoryVersions: false,
+      comments: [],
+      commentsCount: 0
     };
     this.handleToggleShowHistoryVertions = this.handleToggleShowHistoryVertions.bind(this);
   }
   componentDidMount () {
     this.props.fetchArticleContent();
+    this.props.fetchArticleComments();
   }
   formatCreate (timestamp) {
     return $date(timestamp).format('YYYY.MM.DD');
@@ -24,9 +27,17 @@ class Article extends Component {
       showHistoryVersions: !prevState.showHistoryVersions
     }));
   }
+  formatComments (comments) {
+    const commentList = JSON.parse(JSON.stringify(comments.list || []));
+    const firstLevelComments = commentList.filter(item => !item.pid);
+    const secondLevelComments = commentList.filter(item => item.pid);
+    console.log(firstLevelComments);
+    console.log(secondLevelComments);
+  }
   render () {
     const { showHistoryVersions } = this.state;
-    const { article } = this.props;
+    const { article, comments } = this.props;
+    this.formatComments(comments);
     return (
       <div className={ style.articleView }>
         <main className={ style.content }>
@@ -35,15 +46,24 @@ class Article extends Component {
             <div className={ style.articleMeta }>
               <time className={ style.createDate }>{ this.formatCreate(article.createDate) }</time>
             </div>
-            <div className={ `markdown-body ${style.artileContent} ${style.artileContentStyle}` } dangerouslySetInnerHTML={{ __html: article.content }}></div>
-            {/* <div className={ style.articleCopyright }>
-              <div className={ style.author }>作者：Joey Feng</div>
-              <p className={ style.copyrightDesc }>© 文章版权为优旁博客所有，转载请注明来源和原文链接。</p>
-            </div> */}
+            <div className={ style.articleContent }>
+              <Markdown>{ article.content }</Markdown>
+            </div>
+            {/* <div className={ `markdown-body ${style.artileContent} ${style.artileContentStyle}` } dangerouslySetInnerHTML={{ __html: article.content }}></div> */}
             <div className={ style.articleCopyright }>
-              <p className={ style.copyrightDesc }>原文链接：https://www.baidu.com/</p>
+              {
+                article.isOriginal
+                  ? (
+                    <div className={ style.articleCopyright }>
+                      <div className={ style.author }>作者：Joey Feng</div>
+                      <p className={ style.copyrightDesc }>© 文章版权为优旁博客所有，转载请注明来源和原文链接。</p>
+                    </div>
+                  ) : (
+                    <p className={ style.copyrightDesc }>原文链接：{ article.originalUrl }</p>
+                  )
+              }
               <div className={ style.historyVersion }>
-                <div onClick={ this.handleToggleShowHistoryVertions }>修改版本<i className={`icon-sanjiao iconfont ${style.moreIcon}`}></i></div>
+                <div onClick={ this.handleToggleShowHistoryVertions }>修改记录<i className={`icon-sanjiao iconfont ${style.moreIcon}`}></i></div>
                 {
                   showHistoryVersions && <div className={ style.historyVersionDisplay }>
                     <div className={ style.versionItem }>2019-08-12 14:10:29 xxx </div>
@@ -82,155 +102,6 @@ class Article extends Component {
               </div>
             </div>
           </article>
-          <div className={ style.comment }>
-            <p className={ style.commentTitle }>294条回应：“友情链接”</p>
-            <ul className={ style.commentList }>
-              <li className={ style.commentItem }>
-                <div className={ style.initComment }>
-                  <div className={ `clearfix ${style.commentUserInfo}` }>
-                    <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                    <div className={ `fl ${style.infoBlock}` }>
-                      <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                      <div className={ style.commentDate }>12天前</div>
-                    </div>
-                    <div className={ `fr ${style.reply}` }>@回复</div>
-                  </div>
-                  <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                </div>
-                <div className={ style.childtenCommentWrapper }>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                </div>
-              </li>
-              <li className={ style.commentItem }>
-                <div className={ style.initComment }>
-                  <div className={ `clearfix ${style.commentUserInfo}` }>
-                    <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                    <div className={ `fl ${style.infoBlock}` }>
-                      <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                      <div className={ style.commentDate }>12天前</div>
-                    </div>
-                    <div className={ `fr ${style.reply}` }>@回复</div>
-                  </div>
-                  <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                </div>
-                <div className={ style.childtenCommentWrapper }>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                </div>
-              </li>
-              <li className={ style.commentItem }>
-                <div className={ style.initComment }>
-                  <div className={ `clearfix ${style.commentUserInfo}` }>
-                    <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                    <div className={ `fl ${style.infoBlock}` }>
-                      <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                      <div className={ style.commentDate }>12天前</div>
-                    </div>
-                    <div className={ `fr ${style.reply}` }>@回复</div>
-                  </div>
-                  <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                </div>
-                <div className={ style.childtenCommentWrapper }>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                  <div className={ style.childrenComments }>
-                    <div className={ `clearfix ${style.commentUserInfo}` }>
-                      <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
-                      <div className={ `fl ${style.infoBlock}` }>
-                        <div className={ style.commentUsername }>小马哥哥<span className={ style.say }>说道:</span></div>
-                        <div className={ style.commentDate }>12天前</div>
-                      </div>
-                      <div className={ `fr ${style.reply}` }>@回复</div>
-                    </div>
-                    <p className={ style.commentContent }>你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹你好，我用了你的这个主题，请问连接列表的样式怎么做的呀？请翻牌！蟹蟹</p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
           <div className={ style.addComment }>
             <p className={ style.addCommentTip }>发表评论</p>
             <div className={ style.addCommentUserInfo }>
@@ -261,6 +132,45 @@ class Article extends Component {
             </div>
             <button className={ style.submitComment }>提交评价</button>
           </div>
+          <div className={ style.comment }>
+            <p className={ style.commentTitle }>{ comments.count }条回应：“友情链接”</p>
+            <ul className={ style.commentList }>
+              {
+                comments.list && comments.list.map(comment => (
+                  <li className={ style.commentItem } key={ comment.id }>
+                    <div className={ style.initComment }>
+                      <div className={ `clearfix ${style.commentUserInfo}` }>
+                        <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
+                        <div className={ `fl ${style.infoBlock}` }>
+                          <div className={ style.commentUsername }>{ comment.username }<span className={ style.say }>说道:</span></div>
+                          <div className={ style.commentDate }>{ format(comment.commentDate, 'zh_CN') }</div>
+                        </div>
+                        <div className={ `fr ${style.reply}` }>@回复</div>
+                      </div>
+                      <p className={ style.commentContent }>{ comment.content }</p>
+                    </div>
+                    <div className={ style.childtenCommentWrapper }>
+                      {
+                        comment.children.map(childComment => (
+                          <div className={ style.childrenComments } key={ childComment.id }>
+                            <div className={ `clearfix ${style.commentUserInfo}` }>
+                              <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
+                              <div className={ `fl ${style.infoBlock}` }>
+                                <div className={ style.commentUsername }>{ childComment.userSite ? <a href={ childComment.userSite }>{ childComment.username }</a> : childComment.username }<span className={ style.say }>说道:</span></div>
+                                <div className={ style.commentDate }>{ format(childComment.commentDate, 'zh_CN') }</div>
+                              </div>
+                              <div className={ `fr ${style.reply}` }>@回复</div>
+                            </div>
+                            <p className={ style.commentContent }>{ childComment.content }</p>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
         </main>
       </div>
     );
@@ -269,7 +179,9 @@ class Article extends Component {
 
 Article.propTypes = {
   fetchArticleContent: PropTypes.func,
-  article: PropTypes.object
+  fetchArticleComments: PropTypes.func,
+  article: PropTypes.object,
+  comments: PropTypes.object
 };
 
 export default Article;

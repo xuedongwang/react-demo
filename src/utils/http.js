@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const config = {
-  baseURL: '',
+  baseURL: '//localhost:9999/',
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
   }

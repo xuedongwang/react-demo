@@ -22,7 +22,7 @@ class Search extends Component {
             <p className={ style.helpGuide }>👇 The following tabs can help you!</p>
             <ul className={ style.tagsList }>
               {
-                tags.map(tag => (
+                tags.list.map(tag => (
                   <li key={ tag.id } className={ style.tagItem }>
                     <Link to={`/tag/${tag.id}`}># { tag.name } ({ tag.count })</Link>
                   </li>
@@ -38,7 +38,7 @@ class Search extends Component {
 
 Search.propTypes = {
   fetchTags: PropTypes.func,
-  tags: PropTypes.array
+  tags: PropTypes.object
 };
 
 export default Search;

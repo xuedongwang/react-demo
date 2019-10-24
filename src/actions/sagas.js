@@ -11,7 +11,9 @@ import {
   FETCH_ARCHIVES_ASYN,
   SET_ARCHIVES,
   FETCH_ARTICLE_ASYN,
-  SET_ARTICLE
+  SET_ARTICLE,
+  FETCH_ARTICLE_COMMENTS_ASYN,
+  SET_COMMENTS
 } from '@/actions/actionTypes';
 
 import * as Api from '@/api';
@@ -88,6 +90,18 @@ function * watchFetchArticleAsync () {
   yield takeEvery(FETCH_ARTICLE_ASYN, fetchArticleAsync);
 };
 
+function * fetchArticleCommentsAsync () {
+  try {
+    const data = yield call(Api.fetchComments);
+    yield put({ type: SET_COMMENTS, data });
+  } catch (error) {
+    throw error;
+  }
+}
+function * watchFetchArticleCommentsAsync () {
+  yield takeEvery(FETCH_ARTICLE_COMMENTS_ASYN, fetchArticleCommentsAsync);
+};
+
 export default function * rootSaga () {
   yield all([
     watchFetchArticlesAsync(),
@@ -95,6 +109,7 @@ export default function * rootSaga () {
     watchFetchCategoryAsync(),
     watchFetchTagsAsync(),
     watchFetchArchivesAsync(),
-    watchFetchArticleAsync()
+    watchFetchArticleAsync(),
+    watchFetchArticleCommentsAsync()
   ]);
 }

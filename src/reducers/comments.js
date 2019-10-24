@@ -1,12 +1,10 @@
 import {
-  SET_ARCHIVES
+  SET_COMMENTS
 } from '@/actions/actionTypes';
-const initState = {
-  list: []
-};
+const initState = {};
 function archives (state = initState, action) {
   switch (action.type) {
-    case SET_ARCHIVES:
+    case SET_COMMENTS:
       return action.data;
     default:
       return state;
