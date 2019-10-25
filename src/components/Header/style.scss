@@ -1,0 +1,48 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,.1);
+  z-index: 1001;
+}
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1040px;
+  width: 90%;
+  height: 70px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.navBar {
+  display: flex;
+}
+
+.headerLogo {
+  padding: 5px;
+  font-size: 16px;
+}
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+.menuLink {
+  padding: 5px;
+  font-size: 14px;
+  transition: color 0.2s;
+  &:hover {
+    color: #3274ff;
+  }
+  & + & {
+    margin-left: 10px;
+  }
+}
+.search {
+  margin-left: 15px;
+  padding: 5px;
+  cursor: pointer;
+}
