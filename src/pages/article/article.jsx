@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
-import style from './style';
 import { format } from 'timeago.js';
+
+import style from './style';
+
 import Markdown from '@/components/Markdown';
 
 class Article extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      showHistoryVersions: false,
-      comments: [],
-      commentsCount: 0
+      showHistoryVersions: false
     };
     this.handleToggleShowHistoryVertions = this.handleToggleShowHistoryVertions.bind(this);
   }
@@ -19,12 +19,13 @@ class Article extends Component {
     this.props.dispatch({
       type: 'article/fetchArticleContent'
     });
+    console.log(this.props);
     this.props.dispatch({
       type: 'article/fetchArticleComments'
     });
   }
   formatCreate (timestamp) {
-    return $date(timestamp).format('YYYY.MM.DD');
+    return $date(timestamp).format('YYYY年MM月DD日');
   }
   handleToggleShowHistoryVertions (e) {
     this.setState(prevState => ({
@@ -45,13 +46,12 @@ class Article extends Component {
             <div className={ style.articleContent }>
               <Markdown>{ article.content }</Markdown>
             </div>
-            {/* <div className={ `markdown-body ${style.artileContent} ${style.artileContentStyle}` } dangerouslySetInnerHTML={{ __html: article.content }}></div> */}
             <div className={ style.articleCopyright }>
               {
                 article.isOriginal
                   ? (
                     <div className={ style.articleCopyright }>
-                      <div className={ style.author }>作者：Joey Feng</div>
+                      <div className={ style.author }>作者：Xuedong Wang</div>
                       <p className={ style.copyrightDesc }>© 文章版权为优旁博客所有，转载请注明来源和原文链接。</p>
                     </div>
                   ) : (
@@ -175,8 +175,6 @@ class Article extends Component {
 
 Article.propTypes = {
   dispatch: PropTypes.func,
-  fetchArticleContent: PropTypes.func,
-  fetchArticleComments: PropTypes.func,
   article: PropTypes.object,
   comments: PropTypes.object
 };

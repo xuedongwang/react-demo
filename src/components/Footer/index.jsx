@@ -6,11 +6,11 @@ class Footer extends Component {
     return (
       <footer className={ style.footer }>
         <div className={ style.footerRow }>
-          <span className={ style.footerItem }>Powered by <a href="">WordPress</a></span>
+          <span className={ style.footerItem }>Powered by <a href="">Xuedong Wang</a></span>
         </div>
         <div className={ style.footerRow }>
-          <span className={ style.footerItem }>@2019 <a href="">又有博客</a></span>
-          <span className={ style.footerItem }>京ICP备12015504号</span>
+          <span className={ style.footerItem }>@2019 <a href="">xxx博客</a></span>
+          <span className={ style.footerItem }>xICP备xxxxxxx号</span>
         </div>
       </footer>
     );

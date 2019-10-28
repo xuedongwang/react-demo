@@ -11,7 +11,6 @@ import BackTop from '@/components/BackTop';
 class DefaultLayout extends Component {
   render () {
     const { Component, ...rest } = this.props;
-    console.log('rest', rest);
     return (
       <Route
         { ...rest }
