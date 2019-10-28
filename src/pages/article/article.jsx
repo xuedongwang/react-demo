@@ -9,9 +9,7 @@ class Article extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      showHistoryVersions: false,
-      comments: [],
-      commentsCount: 0
+      showHistoryVersions: false
     };
     this.handleToggleShowHistoryVertions = this.handleToggleShowHistoryVertions.bind(this);
   }
@@ -20,24 +18,16 @@ class Article extends Component {
     this.props.fetchArticleComments();
   }
   formatCreate (timestamp) {
-    return $date(timestamp).format('YYYY.MM.DD');
+    return $date(timestamp).format('YYYY年MM月DD日');
   }
   handleToggleShowHistoryVertions (e) {
     this.setState(prevState => ({
       showHistoryVersions: !prevState.showHistoryVersions
     }));
   }
-  formatComments (comments) {
-    const commentList = JSON.parse(JSON.stringify(comments.list || []));
-    const firstLevelComments = commentList.filter(item => !item.pid);
-    const secondLevelComments = commentList.filter(item => item.pid);
-    console.log(firstLevelComments);
-    console.log(secondLevelComments);
-  }
   render () {
     const { showHistoryVersions } = this.state;
     const { article, comments } = this.props;
-    this.formatComments(comments);
     return (
       <div className={ style.articleView }>
         <main className={ style.content }>

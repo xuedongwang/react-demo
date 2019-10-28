@@ -10,7 +10,7 @@ import rootReducer from './reducers';
 import rootSaga from './actions/sagas';
 import http from '@/utils/http';
 
-import App from './App';
+import App from './App.jsx';
 
 import '@/assets/scss/index.scss';
 // import VConsole from 'vconsole';
