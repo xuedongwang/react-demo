@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { connect } from 'dva';
 import style from './style';
 
 class Category extends Component {
   componentDidMount () {
-    this.props.fetchCategory();
+    this.props.dispatch({
+      type: 'category/fetchCategory'
+    });
   }
   formatCategoryDate (timestamp) {
     return $date(timestamp).format('MMM YYYY');
@@ -14,7 +16,7 @@ class Category extends Component {
     return $date(timestamp).format('MMM MM, YYYY');
   }
   render () {
-    const { category } = this.props;
+    const { category } = this.props.category;
     return (
       <div className={ style.pageView }>
         <main className={ style.content }>
@@ -30,12 +32,12 @@ class Category extends Component {
               <div className={ style.articleList }>
                 {
                   category.list.map((article, index) => (
-                    <Link to={`/a/${article.id}`} key={ index } className={ style.articleListItem }>
+                    <a href={`/a/${article.id}`} key={ index } className={ style.articleListItem }>
                       <h3 className={ style.articleTitle }>{ article.title }</h3>
                       <div className={ style.articleMeta }>
                         <time className={ style.articleCreateDate }>{ this.formatArticleDate(article.meta.createDate) }</time>
                       </div>
-                    </Link>
+                    </a>
                   ))
                 }
               </div>
@@ -48,8 +50,8 @@ class Category extends Component {
 }
 
 Category.propTypes = {
-  fetchCategory: PropTypes.func,
+  dispatch: PropTypes.func,
   category: PropTypes.object
 };
 
-export default Category;
+export default connect(state => ({ ...state }))(Category);

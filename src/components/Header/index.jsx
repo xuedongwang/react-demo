@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import style from './style';
 
 class Header extends Component {
@@ -7,18 +6,18 @@ class Header extends Component {
     return (
       <header className={ style.header }>
         <div className={ style.headerInner }>
-          <Link to="/" className={ style.headerLogo }>
+          <a href="/" className={ style.headerLogo }>
             {/* 博客系统 */}
             <img src="https://zos.alipayobjects.com/rmsportal/TOXWfHIUGHvZIyb.svg" height="22"/>
-          </Link>
+          </a>
           <div className={ style.headerRight }>
             <nav className={ style.navBar }>
-              <Link className={ style.menuLink } to="/archives">归档</Link>
-              <Link className={ style.menuLink } to="/about">关于</Link>
+              <a className={ style.menuLink } href="/archives">归档</a>
+              <a className={ style.menuLink } href="/about">关于</a>
             </nav>
-            <Link to="/search" className={style.search}>
+            <a href="/search" className={style.search}>
               <i className="iconfont icon-sousuo"></i>
-            </Link>
+            </a>
           </div>
         </div>
       </header>

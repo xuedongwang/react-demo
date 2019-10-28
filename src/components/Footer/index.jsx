@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import style from './style.scss';
 
 class Footer extends Component {
@@ -7,10 +6,10 @@ class Footer extends Component {
     return (
       <footer className={ style.footer }>
         <div className={ style.footerRow }>
-          <span className={ style.footerItem }>Powered by <Link to="">WordPress</Link></span>
+          <span className={ style.footerItem }>Powered by <a href="">WordPress</a></span>
         </div>
         <div className={ style.footerRow }>
-          <span className={ style.footerItem }>@2019 <Link to="">又有博客</Link></span>
+          <span className={ style.footerItem }>@2019 <a href="">又有博客</a></span>
           <span className={ style.footerItem }>京ICP备12015504号</span>
         </div>
       </footer>

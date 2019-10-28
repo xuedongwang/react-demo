@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { connect } from 'dva';
 import style from './style';
 import { format } from 'timeago.js';
 import Markdown from '@/components/Markdown';
@@ -16,8 +16,12 @@ class Article extends Component {
     this.handleToggleShowHistoryVertions = this.handleToggleShowHistoryVertions.bind(this);
   }
   componentDidMount () {
-    this.props.fetchArticleContent();
-    this.props.fetchArticleComments();
+    this.props.dispatch({
+      type: 'article/fetchArticleContent'
+    });
+    this.props.dispatch({
+      type: 'article/fetchArticleComments'
+    });
   }
   formatCreate (timestamp) {
     return $date(timestamp).format('YYYY.MM.DD');
@@ -27,17 +31,9 @@ class Article extends Component {
       showHistoryVersions: !prevState.showHistoryVersions
     }));
   }
-  formatComments (comments) {
-    const commentList = JSON.parse(JSON.stringify(comments.list || []));
-    const firstLevelComments = commentList.filter(item => !item.pid);
-    const secondLevelComments = commentList.filter(item => item.pid);
-    console.log(firstLevelComments);
-    console.log(secondLevelComments);
-  }
   render () {
     const { showHistoryVersions } = this.state;
-    const { article, comments } = this.props;
-    this.formatComments(comments);
+    const { article, comments } = this.props.article;
     return (
       <div className={ style.articleView }>
         <main className={ style.content }>
@@ -78,7 +74,7 @@ class Article extends Component {
                 {
                   article.tags.map(tag => (
                     <li key={ tag.id } className={ style.articleTagsItem }>
-                      <Link to={ `/tag/${tag.id}` }>#{ tag.name }</Link>
+                      <a href={ `/tag/${tag.id}` }>#{ tag.name }</a>
                     </li>
                   ))
                 }
@@ -86,18 +82,18 @@ class Article extends Component {
               <div className={ style.recommendWrapper }>
                 <p className={ style.moreReadTip }>更多阅读:</p>
                 <div className={ style.recommend }>
-                  <Link to={`/a/dadasdasd`} className={ style.articleListItem }>
+                  <a href={`/a/dadasdasd`} className={ style.articleListItem }>
                     <h3 className={ style.articleTitle }>MAT 分析 Heap Dump 需要关注的指标</h3>
                     <div className={ style.articleMeta }>
                       <time className={ style.articleCreateDate }>Aug 08, 2019</time>
                     </div>
-                  </Link>
-                  <Link to={`/a/dadasdasd`} className={ style.articleListItem }>
+                  </a>
+                  <a href={`/a/dadasdasd`} className={ style.articleListItem }>
                     <h3 className={ style.articleTitle }>MAT 分析 Heap Dump 需要关注的指标</h3>
                     <div className={ style.articleMeta }>
                       <time className={ style.articleCreateDate }>Aug 08, 2019</time>
                     </div>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -178,10 +174,11 @@ class Article extends Component {
 }
 
 Article.propTypes = {
+  dispatch: PropTypes.func,
   fetchArticleContent: PropTypes.func,
   fetchArticleComments: PropTypes.func,
   article: PropTypes.object,
   comments: PropTypes.object
 };
 
-export default Article;
+export default connect(state => ({ ...state }))(Article);

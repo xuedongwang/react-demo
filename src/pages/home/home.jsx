@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import style from './style';
 import Pagination from '@/components/Pagination';
 import { format } from 'timeago.js';
+import { connect } from 'dva';
 
 class Home extends Component {
   constructor (props) {
@@ -18,8 +18,12 @@ class Home extends Component {
     this.handleJumpTo = this.handleJumpTo.bind(this);
   }
   componentDidMount () {
-    this.props.fetchArticles();
-    this.props.fetchHotTags();
+    this.props.dispatch({
+      type: 'home/fetchArticles'
+    });
+    this.props.dispatch({
+      type: 'home/fetchHotTags'
+    });
   }
   handleNextPage () {
     this.setState(prevState => ({
@@ -38,8 +42,7 @@ class Home extends Component {
   }
   render () {
     const { total, currentPage } = this.state;
-    const { articles, hotTags } = this.props;
-    console.log('hotTags', hotTags);
+    const { articles, hotTags } = this.props.home;
     return (
       <div className={ style.pageView }>
         <main className={ style.content }>
@@ -49,7 +52,7 @@ class Home extends Component {
                 articles.list.map(article => (
                   <div key={ article.id } className={ style.articleItem }>
                     <h2 className={ style.articleTitle }>
-                      <Link to={`/a/${article.id}`}>{ article.title }</Link>
+                      <a href={ `/a/${article.id}` }>{ article.title }</a>
                     </h2>
                     <div className={ style.articleMeta }>
                       <div className={ style.createDate }>{ format(article.createDate, 'zh_CN') }</div>
@@ -74,7 +77,7 @@ class Home extends Component {
               <div className={ style.asideItemContent }>
                 {
                   hotTags.list.map(item => (
-                    <Link className={ style.asideTagBtn } title={ item.name } key={ item.id } to={ `/tag/${item.id}` }>{ item.name }</Link>
+                    <a className={ style.asideTagBtn } title={ item.name } key={ item.id } href={ `/tag/${item.id}` }>{ item.name }</a>
                   ))
                 }
               </div>
@@ -87,6 +90,8 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  dispatch: PropTypes.func,
+  home: PropTypes.any,
   fetchArticles: PropTypes.func,
   fetchHotTags: PropTypes.func,
   articles: PropTypes.object,
@@ -95,4 +100,4 @@ Home.propTypes = {
   hotTags: PropTypes.object
 };
 
-export default Home;
+export default connect(state => ({ ...state }))(Home);
