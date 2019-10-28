@@ -1,5 +1,6 @@
 import dva from 'dva';
 import dayjs from 'dayjs';
+import { createLogger } from 'redux-logger';
 import { createBrowserHistory } from 'history';
 
 import http from '@/utils/http';
@@ -11,7 +12,8 @@ window.$http = http;
 
 // create app
 const app = dva({
-  history: createBrowserHistory()
+  history: createBrowserHistory(),
+  onAction: createLogger()
 });
 
 // Model
