@@ -39,14 +39,13 @@ class Article extends Component {
             <div className={ style.articleContent }>
               <Markdown>{ article.content }</Markdown>
             </div>
-            {/* <div className={ `markdown-body ${style.artileContent} ${style.artileContentStyle}` } dangerouslySetInnerHTML={{ __html: article.content }}></div> */}
             <div className={ style.articleCopyright }>
               {
                 article.isOriginal
                   ? (
                     <div className={ style.articleCopyright }>
-                      <div className={ style.author }>作者：Joey Feng</div>
-                      <p className={ style.copyrightDesc }>© 文章版权为优旁博客所有，转载请注明来源和原文链接。</p>
+                      <div className={ style.author }>作者：Xuedong Wang</div>
+                      <p className={ style.copyrightDesc }>© 文章版权为xx博客所有，转载请注明来源和原文链接。</p>
                     </div>
                   ) : (
                     <p className={ style.copyrightDesc }>原文链接：{ article.originalUrl }</p>
