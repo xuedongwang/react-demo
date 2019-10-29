@@ -13,4 +13,6 @@ const data = () => Mock.mock({
   }
 });
 
-module.exports = data;
+export default {
+  '/api/article_list': data()
+};

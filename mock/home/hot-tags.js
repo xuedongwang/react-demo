@@ -10,4 +10,6 @@ const data = () => Mock.mock({
   }
 });
 
-module.exports = data;
+export default {
+  '/api/hot_tags': data()
+};

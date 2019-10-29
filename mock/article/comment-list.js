@@ -24,4 +24,6 @@ const data = () => Mock.mock({
   }
 });
 
-module.exports = data;
+export default {
+  '/api/comment_list': data()
+};

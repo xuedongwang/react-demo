@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import style from './style';
+import style from './style.scss';
 import Pagination from '@/components/Pagination';
 import { format } from 'timeago.js';
 import { connect } from 'dva';

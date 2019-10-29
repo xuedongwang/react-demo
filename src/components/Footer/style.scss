@@ -9,17 +9,11 @@
   border-top: 1px solid #eee;
 }
 .footerRow {
-  & + & {
-    margin-top: 10px;
-  }
+  margin-top: 10px;
 }
 .footerItem {
-  & + & {
-    &:before {
-      content: '·';
-      margin: 0 5px;
-    }
-  }
+  content: '·';
+  margin: 0 5px;
   a:hover {
     color: #3274ff;
   }

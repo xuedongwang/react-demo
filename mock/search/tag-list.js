@@ -11,4 +11,6 @@ const data = () => Mock.mock({
   }
 });
 
-module.exports = data;
+export default {
+  '/api/tag_list': data()
+};

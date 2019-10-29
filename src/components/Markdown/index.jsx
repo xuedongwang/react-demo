@@ -4,7 +4,7 @@ import marked from 'marked';
 import Prism from 'prismjs';
 import 'github-markdown-css';
 import 'prismjs/themes/prism-okaidia.css';
-import style from './style';
+import style from './style.scss';
 const renderer = new marked.Renderer();
 renderer.code = function (code, infostring, escaped) {
   var lang = (infostring || '').match(/\S*/)[0];

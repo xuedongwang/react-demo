@@ -1,0 +1,182 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'dva';
+import { format } from 'timeago.js';
+
+import style from './style.scss';
+
+import Markdown from '@/components/Markdown';
+
+class Article extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      showHistoryVersions: false
+    };
+    this.handleToggleShowHistoryVertions = this.handleToggleShowHistoryVertions.bind(this);
+  }
+  componentDidMount () {
+    this.props.dispatch({
+      type: 'article/fetchArticleContent'
+    });
+    console.log(this.props);
+    this.props.dispatch({
+      type: 'article/fetchArticleComments'
+    });
+  }
+  formatCreate (timestamp) {
+    return $date(timestamp).format('YYYY年MM月DD日');
+  }
+  handleToggleShowHistoryVertions (e) {
+    this.setState(prevState => ({
+      showHistoryVersions: !prevState.showHistoryVersions
+    }));
+  }
+  render () {
+    const { showHistoryVersions } = this.state;
+    const { article, comments } = this.props.article;
+    return (
+      <div className={ style.articleView }>
+        <main className={ style.content }>
+          <article className={ style.article }>
+            <h2 className={ style.title }>{ article.title }</h2>
+            <div className={ style.articleMeta }>
+              <time className={ style.createDate }>{ this.formatCreate(article.createDate) }</time>
+            </div>
+            <div className={ style.articleContent }>
+              <Markdown>{ article.content }</Markdown>
+            </div>
+            <div className={ style.articleCopyright }>
+              {
+                article.isOriginal
+                  ? (
+                    <div className={ style.articleCopyright }>
+                      <div className={ style.author }>作者：Xuedong Wang</div>
+                      <p className={ style.copyrightDesc }>© 文章版权为xx博客所有，转载请注明来源和原文链接。</p>
+                    </div>
+                  ) : (
+                    <p className={ style.copyrightDesc }>原文链接：{ article.originalUrl }</p>
+                  )
+              }
+              <div className={ style.historyVersion }>
+                <div onClick={ this.handleToggleShowHistoryVertions }>修改记录<i className={`icon-sanjiao iconfont ${style.moreIcon}`}></i></div>
+                {
+                  showHistoryVersions && <div className={ style.historyVersionDisplay }>
+                    <div className={ style.versionItem }>2019-08-12 14:10:29 xxx </div>
+                    <div className={ style.versionItem }>2019-08-12 14:10:29 xxx </div>
+                    <div className={ style.versionItem }>2019-08-12 14:10:29 xxx </div>
+                  </div>
+                }
+              </div>
+            </div>
+            <div className={ style.articleFooter }>
+              <ul className={ style.articleTags }>
+                {
+                  article.tags.map(tag => (
+                    <li key={ tag.id } className={ style.articleTagsItem }>
+                      <a href={ `/tag/${tag.id}` }>#{ tag.name }</a>
+                    </li>
+                  ))
+                }
+              </ul>
+              <div className={ style.recommendWrapper }>
+                <p className={ style.moreReadTip }>更多阅读:</p>
+                <div className={ style.recommend }>
+                  <a href={`/a/dadasdasd`} className={ style.articleListItem }>
+                    <h3 className={ style.articleTitle }>MAT 分析 Heap Dump 需要关注的指标</h3>
+                    <div className={ style.articleMeta }>
+                      <time className={ style.articleCreateDate }>Aug 08, 2019</time>
+                    </div>
+                  </a>
+                  <a href={`/a/dadasdasd`} className={ style.articleListItem }>
+                    <h3 className={ style.articleTitle }>MAT 分析 Heap Dump 需要关注的指标</h3>
+                    <div className={ style.articleMeta }>
+                      <time className={ style.articleCreateDate }>Aug 08, 2019</time>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+          <div className={ style.addComment }>
+            <p className={ style.addCommentTip }>发表评论</p>
+            <div className={ style.addCommentUserInfo }>
+              <div className={ style.addCommentInputItem }>
+                <label className={ style.inputLabel } htmlFor="username">
+                  <span className={ style.labelText }>姓名</span>
+                </label>
+                <input className={ style.addCommentInput } type="text"/>
+              </div>
+              <div className={ style.addCommentInputItem }>
+                <label className={ style.inputLabel } htmlFor="username">
+                  <span className={ style.labelText }>电子邮件</span>
+                </label>
+                <input className={ style.addCommentInput } type="text"/>
+              </div>
+              <div className={ style.addCommentInputItem }>
+                <label className={ style.inputLabel } htmlFor="username">
+                  <span className={ style.labelText }>站点</span>
+                </label>
+                <input className={ style.addCommentInput } type="text"/>
+              </div>
+            </div>
+            <div className={ `${style.addCommentInputItem} ${style.addCommentTextareaItem}` }>
+              <label className={ style.inputLabel } htmlFor="username">
+                <span className={ style.labelText }>评论 <span className={ style.replyOther }>对<span className={ style.replayUsername }>C</span>进行回复</span><span className={ style.cancelReply }>取消回复</span></span>
+              </label>
+              <textarea className={ `${style.addCommentInput} ${style.addCommentTexrarea}` }></textarea>
+            </div>
+            <button className={ style.submitComment }>提交评价</button>
+          </div>
+          <div className={ style.comment }>
+            <p className={ style.commentTitle }>{ comments.count }条回应：“友情链接”</p>
+            <ul className={ style.commentList }>
+              {
+                comments.list && comments.list.map(comment => (
+                  <li className={ style.commentItem } key={ comment.id }>
+                    <div className={ style.initComment }>
+                      <div className={ `clearfix ${style.commentUserInfo}` }>
+                        <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
+                        <div className={ `fl ${style.infoBlock}` }>
+                          <div className={ style.commentUsername }>{ comment.username }<span className={ style.say }>说道:</span></div>
+                          <div className={ style.commentDate }>{ format(comment.commentDate, 'zh_CN') }</div>
+                        </div>
+                        <div className={ `fr ${style.reply}` }>@回复</div>
+                      </div>
+                      <p className={ style.commentContent }>{ comment.content }</p>
+                    </div>
+                    <div className={ style.childtenCommentWrapper }>
+                      {
+                        comment.children.map(childComment => (
+                          <div className={ style.childrenComments } key={ childComment.id }>
+                            <div className={ `clearfix ${style.commentUserInfo}` }>
+                              <img src="//placehold.it/600x600" className={ `fl ${style.avatar}` }></img>
+                              <div className={ `fl ${style.infoBlock}` }>
+                                <div className={ style.commentUsername }>{ childComment.userSite ? <a href={ childComment.userSite }>{ childComment.username }</a> : childComment.username }<span className={ style.say }>说道:</span></div>
+                                <div className={ style.commentDate }>{ format(childComment.commentDate, 'zh_CN') }</div>
+                              </div>
+                              <div className={ `fr ${style.reply}` }>@回复</div>
+                            </div>
+                            <p className={ style.commentContent }>{ childComment.content }</p>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </main>
+      </div>
+    );
+  }
+}
+
+Article.propTypes = {
+  dispatch: PropTypes.func,
+  article: PropTypes.object,
+  comments: PropTypes.object
+};
+
+export default connect(state => ({ ...state }))(Article);

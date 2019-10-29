@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import style from './style';
+import style from './style.scss';
 import { connect } from 'dva';
 
 class Search extends Component {

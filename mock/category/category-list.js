@@ -15,4 +15,6 @@ const data = () => Mock.mock({
   }
 });
 
-module.exports = data;
+export default {
+  '/api/category_list': data()
+};

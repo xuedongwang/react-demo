@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
-import style from './style';
+import style from './style.scss';
 import { format } from 'timeago.js';
 
 class Home extends Component {

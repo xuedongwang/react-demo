@@ -18,4 +18,7 @@ const data = () => Mock.mock({
   }
 });
 
-module.exports = data;
+module.exports = {
+  '/api/archive_list': data()
+};
+

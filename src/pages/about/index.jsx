@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'dva';
 import { format } from 'timeago.js';
 
-import style from './style';
+import style from './style.scss';
 
 import Markdown from '@/components/Markdown';
 
@@ -17,11 +17,11 @@ class Article extends Component {
   }
   componentDidMount () {
     this.props.dispatch({
-      type: 'article/fetchArticleContent'
+      type: 'about/fetchArticleContent'
     });
     console.log(this.props);
     this.props.dispatch({
-      type: 'article/fetchArticleComments'
+      type: 'about/fetchArticleComments'
     });
   }
   formatCreate (timestamp) {
@@ -34,7 +34,7 @@ class Article extends Component {
   }
   render () {
     const { showHistoryVersions } = this.state;
-    const { article, comments } = this.props.article;
+    const { article, comments } = this.props.about;
     return (
       <div className={ style.articleView }>
         <main className={ style.content }>

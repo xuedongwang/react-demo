@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
-import style from './style';
+import style from './style.scss';
 
 class Category extends Component {
   componentDidMount () {
