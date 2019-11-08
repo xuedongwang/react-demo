@@ -39,7 +39,6 @@ class Home extends Component {
   render () {
     const { total, currentPage } = this.state;
     const { articles, hotTags } = this.props;
-    console.log('hotTags', hotTags);
     return (
       <div className={ style.pageView }>
         <main className={ style.content }>

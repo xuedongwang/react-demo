@@ -6,16 +6,16 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import dayjs from 'dayjs';
 
-import rootReducer from './reducers';
-import rootSaga from './actions/sagas';
+import rootReducer from '@/reducers';
+import rootSaga from '@/actions/sagas';
 import http from '@/utils/http';
 
-import App from './App.jsx';
+import App from '@/App.jsx';
 
 import '@/assets/scss/index.scss';
-import VConsole from 'vconsole';
+// import VConsole from 'vconsole';
 // eslint-disable-next-line
-new VConsole();
+// new VConsole();
 
 window.$date = dayjs;
 window.$http = http;
