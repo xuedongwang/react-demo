@@ -1,48 +1,50 @@
-import Home from '@/pages/home';
-import Search from '@/pages/search';
-import Category from '@/pages/category';
-import Article from '@/pages/article';
-import Archives from '@/pages/archives';
+import Home from '@/pages/home/home';
+import Search from '@/pages/search/search';
+import Category from '@/pages/category/category';
+import Article from '@/pages/article/article';
+import Archives from '@/pages/archives/archives';
 import NotFound from '@/404';
 const routes = [
   {
-    name: 'Home',
+    key: 'Home',
     path: '/',
     component: Home,
     exact: true
   },
   {
-    name: 'Search',
+    key: 'Search',
     path: '/search',
     component: Search,
     exact: true
   },
   {
-    name: 'Archives',
+    key: 'Archives',
     path: '/archives',
     component: Archives,
     exact: true
   },
   {
-    name: 'Category',
+    key: 'Category',
     path: '/tag/:id',
     component: Category,
     exact: true
   },
   {
-    name: 'Article',
+    key: 'Article',
     path: '/a/:id',
     component: Article,
     exact: true
   },
   {
-    name: 'About',
+    key: 'About',
     path: '/about',
     component: Article,
     exact: true
   },
   {
-    name: 'NotFound',
+    key: 'NotFound',
+    path: '*',
+    exact: false,
     component: NotFound
   }
 ];

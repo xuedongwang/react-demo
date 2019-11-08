@@ -1,47 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import dva from 'dva';
 import dayjs from 'dayjs';
+import { createLogger } from 'redux-logger';
+import { createBrowserHistory } from 'history';
 
-import rootReducer from './reducers';
-import rootSaga from './actions/sagas';
 import http from '@/utils/http';
 
-import App from './App';
-
 import '@/assets/scss/index.scss';
-// import VConsole from 'vconsole';
-// // eslint-disable-next-line
-// new VConsole();
 
 window.$date = dayjs;
 window.$http = http;
 
-const sagaMiddleware = createSagaMiddleware();
-
-const logger = createLogger({
-  collapsed: true,
-  duration: true,
-  level: 'warn',
-  diff: true
+// create app
+const app = dva({
+  history: createBrowserHistory(),
+  onAction: createLogger()
 });
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(sagaMiddleware, logger),
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
-  )
-);
+// Model
+app.model(require('@/pages/home/model.js').default);
+app.model(require('@/pages/search/model.js').default);
+app.model(require('@/pages/archives/model.js').default);
+app.model(require('@/pages/category/model.js').default);
+app.model(require('@/pages/article/model.js').default);
 
-sagaMiddleware.run(rootSaga);
+// register router
+app.router(require('./App.jsx').default);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.querySelector('#app')
-);
+// // 3. Model
+// app.model(require('./models/example').default);
+
+app.start('#app');

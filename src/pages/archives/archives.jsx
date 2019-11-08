@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import style from './style';
 import { format } from 'timeago.js';
 
 class Home extends Component {
   componentDidMount () {
-    this.props.fetchArchives();
+    this.props.dispatch({
+      type: 'archives/fetchArchives'
+    });
   }
   formatYear (timestamp) {
     return $date(timestamp).format('YYYY');
   }
   render () {
-    const { archives } = this.props;
+    const { archives } = this.props.archives;
     return (
       <div className={ style.pageView }>
         <main className={ style.content }>
@@ -23,9 +25,9 @@ class Home extends Component {
                 {
                   archive.list.map(article => (
                     <dd key={ article.id } className={ style.archiveItem }>
-                      <Link to={ `/a/${article.id}` } className={ style.archiveItemTitle }>
+                      <a href={ `/a/${article.id}` } className={ style.archiveItemTitle }>
                         <time className={ style.archiveItemCreateDate }>{ format(article.createDate, 'zh_CN') }</time>{ article.title }
-                      </Link>
+                      </a>
                     </dd>
                   ))
                 }
@@ -39,8 +41,8 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  fetchArchives: PropTypes.func,
+  dispatch: PropTypes.func,
   archives: PropTypes.object
 };
 
-export default Home;
+export default connect(state => ({ ...state }))(Home);

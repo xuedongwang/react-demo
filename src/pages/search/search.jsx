@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import style from './style';
+import { connect } from 'dva';
 
 class Search extends Component {
   componentDidMount () {
-    this.props.fetchTags();
+    this.props.dispatch({
+      type: 'search/fetchTags'
+    });
   }
   render () {
-    const { tags } = this.props;
+    const { tags } = this.props.search;
     return (
       <div className={ style.searchView }>
         <main className={ style.content }>
@@ -24,7 +26,7 @@ class Search extends Component {
               {
                 tags.list.map(tag => (
                   <li key={ tag.id } className={ style.tagItem }>
-                    <Link to={`/tag/${tag.id}`}># { tag.name } ({ tag.count })</Link>
+                    <a href={`/tag/${tag.id}`}># { tag.name } ({ tag.count })</a>
                   </li>
                 ))
               }
@@ -37,8 +39,10 @@ class Search extends Component {
 }
 
 Search.propTypes = {
+  dispatch: PropTypes.func,
+  search: PropTypes.object,
   fetchTags: PropTypes.func,
   tags: PropTypes.object
 };
 
-export default Search;
+export default connect(state => ({ ...state }))(Search);

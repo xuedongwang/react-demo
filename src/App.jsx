@@ -1,29 +1,28 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import DefaultLayout from '@/layouts/default';
-import routes from '@/router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Router, Switch } from 'dva/router';
+import DefaultLayout from '@/layouts/DefaultLayout';
+import routes from '@/router/routes';
 
-class App extends Component {
-  render () {
-    return (
-      <BrowserRouter>
-        <DefaultLayout>
-          <Switch>
-            {
-              routes.map(route => (
-                <Route
-                  path={route.path}
-                  exact={route.exact}
-                  key={route.name}
-                  component={route.component}
-                />
-              ))
-            }
-          </Switch>
-        </DefaultLayout>
-      </BrowserRouter>
-    );
-  }
-}
+const App = (props) => (
+  <Router { ...props }>
+    <Switch>
+      {
+        routes.map(route => (
+          <DefaultLayout
+            key={route.key}
+            exact={route.exact}
+            path={route.path}
+            Component={ route.component }
+          />
+        ))
+      }
+    </Switch>
+  </Router>
+);
+
+App.propTypes = {
+  props: PropTypes.obj
+};
 
 export default App;
