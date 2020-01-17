@@ -7,10 +7,11 @@ class Header extends Component {
     return (
       <header className={ style.header }>
         <div className={ style.headerInner }>
-          <Link to="/" className={ style.headerLogo }>
-            {/* 博客系统 */}
-            <img src="https://zos.alipayobjects.com/rmsportal/TOXWfHIUGHvZIyb.svg" height="22"/>
-          </Link>
+          <div className={ style.headerLeft }>
+            <Link to="/" className={ style.headerLogo }>
+              <img src="https://zos.alipayobjects.com/rmsportal/TOXWfHIUGHvZIyb.svg" height="22"/>
+            </Link>
+          </div>
           <div className={ style.headerRight }>
             <nav className={ style.navBar }>
               <Link className={ style.menuLink } to="/archives">归档</Link>

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run dev & npm run mock",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config=./build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production webpack --config=./build/webpack.prod.conf.js",
     "analyze": "cross-env NODE_ENV=analyze webpack --config=./build/webpack.prod.conf.js",
